@@ -1,371 +1,123 @@
 <!doctype html>
 <html lang="tr">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>ReziKyros — İGA BATI ÇIKIŞ Yerleşkesi Projesi | Basın Bülteni</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet" />
-  <style>
-    :root {
-      --bg: #0f1724;
-      --card: #0b1220;
-      --muted: #9aa4b2;
-      --accent: #00b386;
-      --glass: rgba(255, 255, 255, 0.03);
-      --maxw: 1100px;
-      --radius: 14px;
-      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
-      color: #e6eef6;
-    }
-    * {
-      box-sizing: border-box;
-    }
-    body {
-      margin: 0;
-      background: linear-gradient(180deg, var(--bg), #071020 120%);
-      -webkit-font-smoothing: antialiased;
-    }
-    .wrap {
-      max-width: var(--maxw);
-      margin: 36px auto;
-      padding: 28px;
-    }
-    .card {
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
-      border-radius: var(--radius);
-      padding: 28px;
-      box-shadow: 0 8px 30px rgba(2, 8, 23, 0.6);
-      border: 1px solid rgba(255, 255, 255, 0.03);
-    }
-    .brand-row {
-      display: flex;
-      gap: 18px;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-    .brand-left {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
-    .logo-container {
-      background: var(--glass);
-      border-radius: 50%;
-      padding: 10px;
-      flex-shrink: 0;
-      width: 88px;
-      height: 88px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 0 8px rgba(0, 179, 134, 0.5);
-      border: 2px solid var(--accent);
-      transition: box-shadow 0.3s ease;
-    }
-    .logo-container:hover {
-      box-shadow: 0 0 14px var(--accent);
-    }
-    .logo-container img {
-      max-width: 68px;
-      max-height: 68px;
-      object-fit: contain;
-      border-radius: 50%;
-      background: transparent;
-    }
-    h1 {
-      margin: 0;
-      font-size: 24px;
-      letter-spacing: -0.2px;
-      max-width: 780px;
-    }
-    .lede {
-      color: var(--muted);
-      margin-top: 6px;
-      font-size: 15px;
-      max-width: 780px;
-    }
-    .tag {
-      display: inline-block;
-      padding: 6px 14px;
-      border-radius: 999px;
-      font-weight: 700;
-      background: rgba(0, 0, 0, 0.25);
-      color: var(--accent);
-      font-size: 13px;
-      white-space: nowrap;
-      user-select: none;
-    }
-    .hero {
-      margin-top: 26px;
-      display: grid;
-      grid-template-columns: 1fr 340px;
-      gap: 28px;
-    }
-    .hero .content {
-      padding: 20px;
-      border-radius: 12px;
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.01), transparent);
-      border: 1px solid rgba(255, 255, 255, 0.02);
-      color: #cfe2f6;
-      line-height: 1.6;
-      font-size: 16px;
-    }
-    .overview {
-      margin-top: 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-    .facts {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-    .fact {
-      background: rgba(255, 255, 255, 0.02);
-      padding: 14px;
-      border-radius: 10px;
-      min-width: 140px;
-      font-size: 15px;
-      color: #d9e2f1;
-      font-weight: 600;
-      box-shadow: inset 0 0 5px rgba(0, 179, 134, 0.3);
-      transition: background 0.3s ease;
-    }
-    .fact:hover {
-      background: rgba(0, 179, 134, 0.12);
-    }
-    .fact strong {
-      display: block;
-      font-size: 20px;
-      margin-bottom: 4px;
-    }
-    .quote {
-      margin-top: 18px;
-      padding: 18px;
-      border-left: 5px solid rgba(0, 179, 134, 0.25);
-      background: linear-gradient(90deg, rgba(0, 179, 134, 0.12), transparent);
-      border-radius: 8px;
-      color: var(--muted);
-      font-style: italic;
-      font-size: 15px;
-      max-width: 650px;
-    }
-    aside.aside {
-      padding: 20px;
-      border-radius: 12px;
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.01), transparent);
-      border: 1px solid rgba(255, 255, 255, 0.02);
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      color: #cfe2f6;
-    }
-    .map {
-      width: 100%;
-      height: 180px;
-      border-radius: 10px;
-      overflow: hidden;
-      background: url('https://www.igairport.aero/media/tbgbaizj/detay1.jpg?format=webp') center/cover no-repeat;
-      border: 1px solid rgba(255, 255, 255, 0.03);
-      box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.3);
-    }
-    .partners {
-      font-size: 13px;
-      color: var(--muted);
-      user-select: none;
-    }
-    .partner-logos {
-      margin-top: 8px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      align-items: center;
-    }
-    .partner-logos .partner-logo {
-      background: rgba(0, 0, 0, 0.3);
-      padding: 10px;
-      border-radius: 50%;
-      width: 64px;
-      height: 64px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 0 6px rgba(0, 179, 134, 0.7);
-      transition: box-shadow 0.3s ease;
-    }
-    .partner-logos .partner-logo:hover {
-      box-shadow: 0 0 12px var(--accent);
-    }
-    .partner-logos img {
-      max-width: 48px;
-      max-height: 48px;
-      object-fit: contain;
-      border-radius: 50%;
-      background: transparent;
-      filter: drop-shadow(0 0 1px rgba(0,0,0,0.6));
-    }
-    footer {
-      margin-top: 28px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
-      color: var(--muted);
-      font-size: 13px;
-    }
-    footer .cta {
-      background: var(--accent);
-      color: #042;
-      display: inline-block;
-      padding: 10px 16px;
-      border-radius: 12px;
-      font-weight: 700;
-      text-decoration: none;
-      white-space: nowrap;
-      transition: background-color 0.3s ease;
-    }
-    footer .cta:hover {
-      background: #009969;
-    }
-
-    @media (max-width: 920px) {
-      .hero {
-        grid-template-columns: 1fr;
-      }
-      .brand-row {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 14px;
-      }
-      h1 {
-        font-size: 20px;
-        max-width: 100%;
-      }
-      .lede {
-        max-width: 100%;
-        font-size: 14px;
-      }
-      .logo-container {
-        width: 72px;
-        height: 72px;
-        padding: 6px;
-      }
-      .partner-logos .partner-logo {
-        width: 56px;
-        height: 56px;
-        padding: 8px;
-      }
-      .partner-logos img {
-        max-width: 40px;
-        max-height: 40px;
-      }
-    }
-    @media print {
-      body {
-        background: white;
-        color: black;
-      }
-      .card {
-        box-shadow: none;
-        border: none;
-        background: white;
-      }
-      .logo-container {
-        background: transparent;
-        box-shadow: none;
-      }
-      footer .cta {
-        display: none;
-      }
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>KyroServices Global — Starbucks Greece Tender</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+  body{
+    margin:0; padding:0; font-family:'Inter',sans-serif;
+    background:linear-gradient(180deg,#006341,#0b1220);
+    color:white; display:flex; flex-direction:column; align-items:center; min-height:100vh;
+  }
+  header{
+    display:flex; align-items:center; justify-content:center; gap:20px;
+    padding:20px; flex-wrap:wrap;
+  }
+  header img{
+    height:80px; width:auto; object-fit:contain;
+  }
+  .lang-btn{
+    background:rgba(255,255,255,0.15);
+    border:none; padding:8px 20px; border-radius:50px;
+    font-size:16px; color:white; cursor:pointer; font-weight:600;
+    margin-top:10px;
+  }
+  .lang-btn:hover{background:rgba(255,255,255,0.3);}
+  .content{
+    text-align:center; padding:20px; max-width:900px;
+  }
+  .content p{
+    font-size:18px; line-height:1.6; font-weight:400;
+  }
+  .accent{color:#00ffb3; font-weight:700;}
+  footer{
+    display:flex; flex-direction:column; align-items:center; gap:10px;
+    padding:20px;
+  }
+  .btn{
+    display:inline-block; padding:10px 24px; border-radius:50px;
+    background:rgba(255,255,255,0.15); color:white; text-decoration:none; font-size:16px; font-weight:600;
+    border:1px solid rgba(255,255,255,0.3);
+  }
+  .note{
+    font-size:14px; color:rgba(255,255,255,0.75); text-align:center; max-width:900px;
+  }
+  [data-lang]{display:none;}
+  [data-lang].show{display:block;}
+</style>
 </head>
 <body>
-  <div class="wrap">
-    <article class="card" aria-labelledby="title">
-      <header class="brand-row">
-        <div class="brand-left">
-          <div class="logo-container" aria-hidden="true">
-            <img src="https://kyrosil.eu/wp-content/uploads/2025/07/290299_a04d46893aa7d9c461374e6ce89f8267-11_7_2022-10_38_08-AM-300x300.png?crop=1" alt="KyroServices Global logo" />
-          </div>
-          <div>
-            <h1 id="title">ReziKyros, İstanbul Havalimanı (İGA) BATI ÇIKIŞ Yerleşkesinde Yükseliyor</h1>
-            <p class="lede">
-              KyroServices Global ile Cengiz Holding ve Kalyon Holding'in ana ortak ve sahipliğindeki İGA arasındaki bugün imzalanacak protokol kapsamında, ReziKyros 3 bloklu lojman ve destek binası inşasına başlıyor.
-            </p>
-          </div>
-        </div>
-        <div style="margin-left:auto; text-align:right;">
-          <span class="tag">Resmi Duyuru</span>
-          <p class="meta" style="margin-top:8px">Protokol Tarihi: <strong>Bugün</strong></p>
-        </div>
-      </header>
-      <section class="hero">
-        <div class="content">
-          <p>
-            KyroServices Global’in konut inşa markası <strong>ReziKyros</strong>, İstanbul Havalimanı (İGA) BATI ÇIKIŞ bölümünde, Türkiye’nin inşaat sektöründe söz sahibi olan <strong>Cengiz Holding</strong> ve <strong>Kalyon Holding</strong> ile ortaklaşa hayata geçirilecek bir lojman ve destek tesisi projesini başlatıyor. Proje; lojman, idari destek binası ve ortak kullanım alanlarından oluşan <strong>3 bloklu</strong> bir yerleşke olarak planlandı. Bu altyapı, havalimanı çalışanlarına güvenli, konforlu ve sürdürülebilir yaşam alanı sağlayacak şekilde tasarlandı.
-          </p>
-          <div class="overview">
-            <div class="facts">
-              <div class="fact"><strong>3</strong><br />Blok</div>
-              <div class="fact"><strong>Yer:</strong><br />İGA — BATI ÇIKIŞ</div>
-              <div class="fact"><strong>Ortaklar</strong><br />KyroServices Global • Cengiz • Kalyon</div>
-              <div class="fact"><strong>Öne çıkan</strong><br />Deprem güvenliği • Enerji verimliliği</div>
-            </div>
-            <div class="quote">
-              “ReziKyros olarak inşa ettiğimiz her projede sağlamlık ve güvenlik birinci önceliğimiz. İGA gibi stratejik bir lokasyonda, sektörün güçlü isimleriyle bir araya gelmek bizim için gurur verici.”
-              — <em>Kyros I. DUGAN, CEO, KyroServices Global</em>
-            </div>
-          </div>
-          <h3 style="margin-top: 20px;">Projenin Teknik ve Sürdürülebilirlik Vurgusu</h3>
-          <p>
-            ReziKyros, Avrupa normlarının üzerine çıkmayı hedefleyen inşa standartları ile çalışır. Yeni yerleşkede; yüksek performanslı yapı malzemeleri, pasif enerji önlemleri, yağmur suyu geri kazanımı, düşük karbonlu malzeme tercihleri ve en güncel deprem yönetmeliğine uygun temeller kullanılacaktır. Ayrıca yerleşke, çalışanların yaşam konforunu artırmaya yönelik yeşil alanlar ve ortak aktivite alanlarıyla desteklenecektir.
-          </p>
-          <h3 style="margin-top: 16px;">Hedef Kitle ve İşlev</h3>
-          <p>
-            Proje, öncelikle İGA personeli, teknik ekipler ve sahada görev yapan operasyon ekiplerine yönelik olarak planlandı. Amaç; vardiya sistemiyle çalışan ekiplerin hızlı erişebileceği, dinlenebileceği ve aileleriyle güvenli bir şekilde konaklayabileceği hem kısa hem uzun dönemli bir yaşam çözümü sunmaktır.
-          </p>
-        </div>
-        <aside class="aside" aria-label="Proje ve ortak logo görselleri">
-          <div class="map" role="img" aria-label="İGA havaalanı görseli"></div>
-          <div class="partners" aria-label="Proje Logoları">
-            <div>Proje Logoları</div>
-            <div class="partner-logos">
-              <div class="partner-logo" aria-hidden="true">
-                <img src="https://kyrosil.eu/wp-content/uploads/2025/07/290299_a04d46893aa7d9c461374e6ce89f8267-11_7_2022-10_38_08-AM-300x300.png?crop=1" alt="KyroServices Global" />
-              </div>
-              <div class="partner-logo" aria-hidden="true">
-                <img src="https://kyrosil.eu/wp-content/uploads/2025/07/8_31_2022-8_02_56-AM-150x300.png" alt="ReziKyros" />
-              </div>
-              <div class="partner-logo" aria-hidden="true" style="background:#0d1a2a;">
-                <img src="https://www.cengiz-insaat.com.tr/wp-content/uploads/2017/10/Cengiz_Holding_logo_holding.png" alt="Cengiz Holding" />
-              </div>
-              <div class="partner-logo" aria-hidden="true" style="background:#0d1a2a;">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYQ6QaUVV4tcZOED3hj_2ovKf4LGr-z4ig4A&s" alt="Kalyon Holding" />
-              </div>
-              <div class="partner-logo" aria-hidden="true">
-                <img src="https://www.igairport.aero/media/tbgbaizj/detay1.jpg?format=webp" alt="İGA" />
-              </div>
-            </div>
-            <div style="margin-top: 10px; font-size: 13px; color: var(--muted); user-select:none;">
-              İletişim: <a href="mailto:info@kyro.services" style="color: var(--accent); text-decoration: none;">info@kyro.services</a>
-            </div>
-          </div>
-        </aside>
-      </section>
-      <footer>
-        <div>
-          <div class="meta">Basın İletişimi — KyroServices Global</div>
-          <div class="meta">Adres: KyroServices Global | www.kyro.services</div>
-        </div>
-        <div style="text-align: right;">
-          <a class="cta" href="#">Basın Paketi İndir</a>
-        </div>
-      </footer>
-    </article>
+  <header>
+    <img src="https://kyrosil.eu/wp-content/uploads/2025/07/290299_a04d46893aa7d9c461374e6ce89f8267-11_7_2022-10_38_08-AM-300x300.png?crop=1" alt="KyroServices Global">
+    <img src="https://kyrosil.eu/wp-content/uploads/2025/04/image-7.png" alt="Starbucks">
+  </header>
+
+  <button class="lang-btn" id="toggle">EN</button>
+
+  <div class="content">
+
+    <div data-lang="tr" class="show">
+      <p>
+        KyroServices Global, Avrupa’daki büyüme stratejisini güçlendirecek önemli bir adım atarak, <strong>1 Eylül 2025</strong> tarihinde gerçekleştirilecek
+        <span class="accent">Starbucks Yunanistan ve Kıbrıs marka hakları ile operasyon yönetimi ihalesine</span>
+        resmi olarak katılmıştır.
+      </p>
+      <p>
+        Bu ihale, uzun yıllardır <strong>Marinopoulos Coffee Company S.A.</strong> tarafından yürütülen marka haklarının geleceğini belirleyecek olup,
+        uluslararası ölçekte güçlü adayların yarıştığı prestijli bir süreçtir. KyroServices Global, finansal gücü, küresel marka yönetim tecrübesi ve Avrupa genelindeki
+        operasyonel başarılarıyla bu yarışta öne çıkan en iddialı katılımcılardan biridir.
+      </p>
+      <p>
+        Şirketimiz, Starbucks’ın Yunanistan’daki potansiyelini en üst seviyeye taşıyabilecek stratejik vizyona ve operasyonel kabiliyete sahiptir.
+        Bu süreç, yalnızca bir marka lisansını kazanma yarışı değil, aynı zamanda bölgedeki kahve kültürünü yeni bir döneme taşıma fırsatıdır.
+      </p>
+      <p>
+        İhale sürecinin her aşamasında şeffaflık ilkesiyle hareket edecek, gelişmeleri kamuoyu ve yatırımcılarımızla düzenli olarak paylaşacağız.
+      </p>
+    </div>
+
+    <div data-lang="en">
+      <p>
+        KyroServices Global has taken an important step to strengthen its growth strategy in Europe by officially participating in the
+        <span class="accent">Starbucks Greece &amp; Cyprus brand rights and operations management tender</span>
+        to be held on <strong>September 1, 2025</strong>.
+      </p>
+      <p>
+        This tender will determine the future of the brand rights, which have been managed for many years by
+        <strong>Marinopoulos Coffee Company S.A.</strong>, and is a prestigious process with strong contenders on an international scale.
+        KyroServices Global stands out as one of the most ambitious participants in this race with its financial strength, global brand management
+        experience, and operational success across Europe.
+      </p>
+      <p>
+        Our company has the strategic vision and operational capability to realize the full potential of Starbucks in Greece.
+        This process is not merely a competition to obtain a brand license but also an opportunity to bring a new era to the region’s coffee culture.
+      </p>
+      <p>
+        We will act with transparency at every stage of the tender process and will regularly share developments with the public and our investors.
+      </p>
+    </div>
+
   </div>
+
+  <footer>
+    <a class="btn" href="https://kyro.services" target="_blank">🌐 kyro.services</a>
+    <a class="btn" href="mailto:info@kyro.services">✉️ info@kyro.services</a>
+    <div class="note">Kyros and Dimitri History Services, KyroServices Global’in alt şirketidir.</div>
+  </footer>
+
+<script>
+const btn = document.getElementById('toggle');
+const tr = document.querySelector('[data-lang="tr"]');
+const en = document.querySelector('[data-lang="en"]');
+let isTR = true;
+btn.addEventListener('click', ()=>{
+  isTR = !isTR;
+  tr.classList.toggle('show', isTR);
+  en.classList.toggle('show', !isTR);
+  btn.textContent = isTR ? 'EN' : 'TR';
+});
+</script>
 </body>
 </html>
