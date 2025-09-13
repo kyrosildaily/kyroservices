@@ -1,33 +1,71 @@
 <div class="kyrosil-gift-wrapper" lang="en">
   <style>
     .kyrosil-gift-wrapper {
-      --bg:#0f1220; --card:#151933; --txt:#e9ecf1; --muted:#9aa3b2; --accent:#7aa2ff; --ok:#22c55e; --err:#ef4444;
-      display:grid; place-items:center; padding:20px; background:var(--bg); color:var(--txt); font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      min-height:100vh;
+      display:flex; justify-content:center; align-items:center;
+      background:linear-gradient(135deg,#4f46e5,#9333ea,#ec4899);
+      font-family:'Segoe UI',Roboto,Arial,sans-serif;
+      color:#fff; padding:20px;
     }
-    .kyrosil-card{ width:100%; max-width:560px; background:var(--card); border:1px solid #263056; border-radius:16px; padding:22px; box-shadow:0 10px 30px rgba(0,0,0,.35); position:relative}
-    .lang-switch{ position:absolute; top:16px; right:16px; display:flex; gap:8px}
-    .lang-btn{ background:var(--accent); border:none; border-radius:8px; padding:4px 8px; font-size:13px; font-weight:600; cursor:pointer; color:#0b1024}
-    .kyrosil-title{font-size:22px; font-weight:700; margin:0 0 8px}
-    .kyrosil-sub{font-size:14px; color:var(--muted); margin:0 0 16px}
-    .kyrosil-note{font-size:14px; background:#0f1733; border:1px dashed #2a3a74; padding:10px 12px; border-radius:10px; margin-bottom:16px}
+    .kyrosil-card{
+      width:100%; max-width:500px;
+      background:rgba(255,255,255,0.1);
+      backdrop-filter:blur(12px);
+      border-radius:20px;
+      padding:28px 24px;
+      box-shadow:0 12px 40px rgba(0,0,0,.3);
+      position:relative;
+      overflow:hidden;
+      transition:all .6s ease;
+    }
+    .kyrosil-card.submitted{
+      max-width:360px; padding:50px 24px;
+    }
+    .lang-switch{ position:absolute; top:16px; right:16px; display:flex; gap:6px }
+    .lang-btn{ background:#fff; color:#111; border:none; border-radius:8px; padding:4px 8px; font-size:13px; font-weight:600; cursor:pointer }
+    .insta-link{
+      display:flex; align-items:center; justify-content:center;
+      gap:8px; margin-bottom:20px; text-decoration:none;
+      background:#e1306c; padding:10px 14px; border-radius:12px;
+      color:#fff; font-weight:600; font-size:15px;
+      transition:transform .2s, box-shadow .2s;
+    }
+    .insta-link:hover{ transform:translateY(-2px); box-shadow:0 6px 16px rgba(0,0,0,.4) }
+    .insta-link svg{ width:20px; height:20px; fill:white }
+    .kyrosil-title{ font-size:24px; font-weight:700; margin:0 0 8px; text-align:center }
+    .kyrosil-sub{ font-size:15px; text-align:center; margin:0 0 18px; opacity:.9 }
+    .kyrosil-note{ font-size:14px; background:rgba(255,255,255,0.15); border:1px dashed rgba(255,255,255,0.4); padding:10px 12px; border-radius:10px; margin-bottom:16px }
     .kyrosil-field{margin-bottom:14px}
     .kyrosil-label{display:block; font-size:14px; margin-bottom:6px}
     .kyrosil-input{
-      width:100%; padding:12px 14px; border-radius:12px; border:1px solid #2a3563; background:#0e1430; color:var(--txt);
-      outline:none; transition:border .2s, box-shadow .2s; font-size:15px;
+      width:100%; padding:12px 14px; border-radius:12px;
+      border:none; outline:none; font-size:15px;
+      background:rgba(255,255,255,0.15); color:#fff;
     }
-    .kyrosil-input:focus{ border-color:var(--accent); box-shadow:0 0 0 3px rgba(122,162,255,.15)}
+    .kyrosil-input::placeholder{ color:#ddd }
     .kyrosil-btn{
-      width:100%; padding:12px 16px; border:none; border-radius:12px; font-weight:700; font-size:15px;
-      color:#0b1024; background:var(--accent); cursor:pointer; transition:transform .05s ease;
+      width:100%; padding:12px 16px; border:none; border-radius:12px;
+      font-weight:700; font-size:15px; margin-top:4px;
+      color:#fff; background:linear-gradient(135deg,#4f46e5,#9333ea);
+      cursor:pointer; transition:opacity .2s;
     }
-    .kyrosil-btn:active{ transform:translateY(1px)}
-    .kyrosil-msg{margin-top:14px; font-size:14px; display:none}
-    .kyrosil-msg.ok{ color:var(--ok)}
-    .kyrosil-msg.err{ color:var(--err)}
-    .kyrosil-footer{margin-top:16px; font-size:12px; color:var(--muted); text-align:center}
-    /* Honeypot */
+    .kyrosil-btn:hover{ opacity:0.9 }
+    .kyrosil-msg{margin-top:16px; font-size:15px; display:none; text-align:center; opacity:0; transition:opacity .6s ease}
+    .kyrosil-msg.show{ display:block; opacity:1 }
+    .kyrosil-msg.ok{ color:#22c55e; font-weight:600 }
+    .kyrosil-msg.err{ color:#f87171; font-weight:600 }
+    .kyrosil-footer{margin-top:16px; font-size:12px; text-align:center; opacity:.8}
     .hp-wrap{ position:absolute !important; left:-9999px !important; visibility:hidden !important; height:0; width:0; overflow:hidden}
+    .hide-fields{ opacity:0; transform:translateY(-10px); pointer-events:none; transition:all .4s ease }
+    /* Tik animasyonu */
+    .checkmark {
+      width:64px; height:64px; border-radius:50%; display:block; stroke-width:3; stroke:#22c55e; stroke-miterlimit:10; margin:0 auto 14px; box-shadow: inset 0px 0px 0px #22c55e; animation:fill .4s ease-in-out .4s forwards, scale .3s ease-in-out .9s both;
+    }
+    .checkmark__circle {stroke-dasharray:166; stroke-dashoffset:166; stroke-width:3; stroke-miterlimit:10; stroke:#22c55e; fill:none; animation:stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;}
+    .checkmark__check {transform-origin:50% 50%; stroke-dasharray:48; stroke-dashoffset:48; animation:stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;}
+    @keyframes stroke {100% {stroke-dashoffset:0}}
+    @keyframes scale {0%, 100% {transform:none} 50% {transform:scale3d(1.1, 1.1, 1)}}
+    @keyframes fill {100% {box-shadow:inset 0px 0px 0px 30px #22c55e}}
   </style>
 
   <form class="kyrosil-card" id="kyrosil-gift-form" novalidate>
@@ -37,32 +75,47 @@
       <button type="button" class="lang-btn" data-lang="tr">TR 🇹🇷</button>
     </div>
 
-    <h2 class="kyrosil-title" data-en="Pull&Bear Gift Voucher" data-tr="Pull&Bear Hediye Çeki">Pull&Bear Gift Voucher</h2>
-    <p class="kyrosil-sub" data-en="Follow Kyrosil on Instagram today until 00:00 CET and receive a 15 EUR voucher (valid in EU countries)." data-tr="Bugün 00.00 CET’e kadar Kyrosil’i Instagram’dan takip eden herkese Türkiye’de geçerli 500 TL hediye çeki.">Follow Kyrosil...</p>
+    <!-- Instagram link -->
+    <a href="https://instagram.com/kyrosil" target="_blank" rel="noopener" class="insta-link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M224 141c-63.6 0-115 51.4-115 115s51.4 115 115 115 115-51.4 115-115-51.4-115-115-115zm0 190c-41.4 0-75-33.6-75-75s33.6-75 75-75 75 33.6 75 75-33.6 75-75 75zm146.4-194.2c0 14.9-12.1 27-27 27s-27-12.1-27-27 12.1-27 27-27 27 12.1 27 27zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.3-58-34.5-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.9 1.7-67.7 9.9-93.9 36.2S9.9 128.1 8.2 164c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9 26.2 26.2 58 34.5 93.9 36.2 37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.5-58 36.2-93.9 2.1-37 2.1-147.9 0-184.9z"/></svg>
+      kyrosil
+    </a>
 
-    <div class="kyrosil-note" data-en="The voucher code will be sent to the email address you provide below." data-tr="Hediye çeki kodu aşağıda girdiğiniz e-posta adresinize gönderilecektir.">
-      The voucher code will be sent...
+    <div id="form-fields">
+      <h2 class="kyrosil-title" data-en="Pull&Bear Gift Voucher" data-tr="Pull&Bear Hediye Çeki">Pull&Bear Gift Voucher</h2>
+      <p class="kyrosil-sub" data-en="Follow Kyrosil on Instagram today until 00:00 CET and receive a 15 EUR voucher (valid in EU countries)." data-tr="Bugün 00.00 CET’e kadar Kyrosil’i Instagram’dan takip eden herkese Türkiye’de geçerli 500 TL hediye çeki.">Follow Kyrosil...</p>
+
+      <div class="kyrosil-note" data-en="The voucher code will be sent to the email address you provide below." data-tr="Hediye çeki kodu aşağıda girdiğiniz e-posta adresinize gönderilecektir.">
+        The voucher code will be sent...
+      </div>
+
+      <div class="kyrosil-field">
+        <label class="kyrosil-label" data-en="Instagram Username" data-tr="Instagram Kullanıcı Adı" for="ig">Instagram Username</label>
+        <input class="kyrosil-input" type="text" id="ig" name="instagram" placeholder="yourusername" required />
+      </div>
+
+      <div class="kyrosil-field">
+        <label class="kyrosil-label" data-en="Email Address" data-tr="E-posta Adresi" for="email">Email Address</label>
+        <input class="kyrosil-input" type="email" id="email" name="email" placeholder="example@mail.com" required />
+      </div>
+
+      <!-- Honeypot -->
+      <div class="hp-wrap" aria-hidden="true">
+        <label>Leave blank</label>
+        <input type="text" name="website" tabindex="-1" autocomplete="off" />
+      </div>
+
+      <button class="kyrosil-btn" type="submit" data-en="Submit" data-tr="Gönder">Submit</button>
     </div>
 
-    <div class="kyrosil-field">
-      <label class="kyrosil-label" data-en="Instagram Username" data-tr="Instagram Kullanıcı Adı" for="ig">Instagram Username</label>
-      <input class="kyrosil-input" type="text" id="ig" name="instagram" placeholder="yourusername" required />
+    <div class="kyrosil-msg ok" id="msgOk" data-en="Your submission has been received. After verification, your voucher code will be sent to your email. This form is now closed." data-tr="Başvurunuz alındı. Kontrollerin ardından hediye çeki kodunuz e-posta adresinize gönderilecektir. Form kapanmıştır.">
+      <!-- Tik ikonu -->
+      <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+        <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
+        <path class="checkmark__check" fill="none" d="M14 27l7 7 16-16"/>
+      </svg>
+      Your submission has been received...
     </div>
-
-    <div class="kyrosil-field">
-      <label class="kyrosil-label" data-en="Email Address" data-tr="E-posta Adresi" for="email">Email Address</label>
-      <input class="kyrosil-input" type="email" id="email" name="email" placeholder="example@mail.com" required />
-    </div>
-
-    <!-- Honeypot -->
-    <div class="hp-wrap" aria-hidden="true">
-      <label>Leave blank</label>
-      <input type="text" name="website" tabindex="-1" autocomplete="off" />
-    </div>
-
-    <button class="kyrosil-btn" type="submit" data-en="Submit" data-tr="Gönder">Submit</button>
-
-    <div class="kyrosil-msg ok" id="msgOk" data-en="Your submission has been received. After verification, your voucher code will be sent to your email. This form is now closed." data-tr="Başvurunuz alındı. Kontrollerin ardından hediye çeki kodunuz e-posta adresinize gönderilecektir. Form kapanmıştır.">Your submission has been received...</div>
     <div class="kyrosil-msg err" id="msgErr" data-en="Error! Please try again." data-tr="Hata! Lütfen tekrar deneyin.">Error! Please try again.</div>
 
     <div class="kyrosil-footer">© Kyrosil</div>
@@ -70,54 +123,56 @@
 
   <script>
     (function(){
-      const form = document.getElementById('kyrosil-gift-form');
-      const msgOk = document.getElementById('msgOk');
-      const msgErr = document.getElementById('msgErr');
-      const fields = form.querySelectorAll('[data-en]');
-      const langBtns = document.querySelectorAll('.lang-btn');
-
-      // regex: IG username
-      const igRegex = /^[a-zA-Z0-9._]{1,30}$/;
+      const form=document.getElementById('kyrosil-gift-form');
+      const msgOk=document.getElementById('msgOk');
+      const msgErr=document.getElementById('msgErr');
+      const fields=document.querySelectorAll('[data-en]');
+      const langBtns=document.querySelectorAll('.lang-btn');
+      const igRegex=/^[a-zA-Z0-9._]{1,30}$/;
+      const fieldBlock=document.getElementById('form-fields');
 
       function setLang(lang){
         fields.forEach(el=>{
-          el.innerHTML = el.getAttribute('data-'+lang);
+          el.innerHTML=el.getAttribute('data-'+lang);
         });
       }
-      // default dil: EN
-      setLang('en');
+      setLang('en'); // açılış dili EN
 
       langBtns.forEach(btn=>{
-        btn.addEventListener('click',()=>{
-          const l = btn.getAttribute('data-lang');
-          setLang(l);
-        });
+        btn.addEventListener('click',()=>setLang(btn.getAttribute('data-lang')));
       });
+
+      // localStorage kontrolü
+      if(localStorage.getItem("giftFormSubmitted")){
+        form.classList.add('submitted');
+        fieldBlock.classList.add('hide-fields');
+        msgOk.classList.add('show');
+      }
 
       form.addEventListener('submit',(e)=>{
         e.preventDefault();
         msgErr.style.display='none';
 
-        const ig = form.instagram.value.trim();
-        const email = form.email.value.trim();
-        const honeypot = form.querySelector('input[name="website"]').value;
+        const ig=form.instagram.value.trim();
+        const email=form.email.value.trim();
+        const honeypot=form.querySelector('input[name="website"]').value;
 
-        if(honeypot){ return; } // bot doldurduysa iptal
+        if(honeypot){return;} // bot
 
         if(!igRegex.test(ig)){
           msgErr.textContent="Invalid Instagram username / Geçersiz kullanıcı adı.";
-          msgErr.style.display='block';
-          return;
+          msgErr.style.display='block'; return;
         }
         if(!email || !email.includes('@')){
           msgErr.textContent="Invalid email / Geçersiz e-posta.";
-          msgErr.style.display='block';
-          return;
+          msgErr.style.display='block'; return;
         }
 
         // Başarılı
-        form.querySelectorAll('input,button').forEach(el=>el.disabled=true);
-        msgOk.style.display='block';
+        fieldBlock.classList.add('hide-fields');
+        form.classList.add('submitted');
+        msgOk.classList.add('show');
+        localStorage.setItem("giftFormSubmitted","true");
         form.reset();
       });
     })();
