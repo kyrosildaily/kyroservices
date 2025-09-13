@@ -31,7 +31,7 @@
       transition:transform .2s, box-shadow .2s;
     }
     .insta-link:hover{ transform:translateY(-2px); box-shadow:0 6px 16px rgba(0,0,0,.4) }
-    .insta-link svg{ width:20px; height:20px; fill:white }
+    .insta-link svg{ width:22px; height:22px; fill:white; flex-shrink:0 }
     .kyrosil-title{ font-size:24px; font-weight:700; margin:0 0 8px; text-align:center }
     .kyrosil-sub{ font-size:15px; text-align:center; margin:0 0 18px; opacity:.9 }
     .kyrosil-note{ font-size:14px; background:rgba(255,255,255,0.15); border:1px dashed rgba(255,255,255,0.4); padding:10px 12px; border-radius:10px; margin-bottom:16px }
@@ -59,13 +59,12 @@
     .hide-fields{ opacity:0; transform:translateY(-10px); pointer-events:none; transition:all .4s ease }
     /* Tik animasyonu */
     .checkmark {
-      width:64px; height:64px; border-radius:50%; display:block; stroke-width:3; stroke:#22c55e; stroke-miterlimit:10; margin:0 auto 14px; box-shadow: inset 0px 0px 0px #22c55e; animation:fill .4s ease-in-out .4s forwards, scale .3s ease-in-out .9s both;
+      width:72px; height:72px; border-radius:50%; display:block; margin:0 auto 14px;
+      stroke-width:3; stroke:#22c55e; stroke-miterlimit:10;
     }
-    .checkmark__circle {stroke-dasharray:166; stroke-dashoffset:166; stroke-width:3; stroke-miterlimit:10; stroke:#22c55e; fill:none; animation:stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;}
-    .checkmark__check {transform-origin:50% 50%; stroke-dasharray:48; stroke-dashoffset:48; animation:stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;}
+    .checkmark__circle {stroke-dasharray:166; stroke-dashoffset:166; stroke-width:3; stroke:#22c55e; fill:none; animation:stroke .6s forwards;}
+    .checkmark__check {stroke-dasharray:48; stroke-dashoffset:48; stroke-width:3; stroke:#fff; animation:stroke .3s .7s forwards;}
     @keyframes stroke {100% {stroke-dashoffset:0}}
-    @keyframes scale {0%, 100% {transform:none} 50% {transform:scale3d(1.1, 1.1, 1)}}
-    @keyframes fill {100% {box-shadow:inset 0px 0px 0px 30px #22c55e}}
   </style>
 
   <form class="kyrosil-card" id="kyrosil-gift-form" novalidate>
@@ -77,7 +76,8 @@
 
     <!-- Instagram link -->
     <a href="https://instagram.com/kyrosil" target="_blank" rel="noopener" class="insta-link">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M224 141c-63.6 0-115 51.4-115 115s51.4 115 115 115 115-51.4 115-115-51.4-115-115-115zm0 190c-41.4 0-75-33.6-75-75s33.6-75 75-75 75 33.6 75 75-33.6 75-75 75zm146.4-194.2c0 14.9-12.1 27-27 27s-27-12.1-27-27 12.1-27 27-27 27 12.1 27 27zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.3-58-34.5-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.9 1.7-67.7 9.9-93.9 36.2S9.9 128.1 8.2 164c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9 26.2 26.2 58 34.5 93.9 36.2 37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.5-58 36.2-93.9 2.1-37 2.1-147.9 0-184.9z"/></svg>
+      <!-- FontAwesome IG logo -->
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M224,202.66A53.34,53.34,0,1,0,277.34,256,53.38,53.38,0,0,0,224,202.66Zm124.71-41a54,54,0,0,0-30.34-30.34c-21-8.29-71-6.41-94.37-6.41s-73.36-1.87-94.37,6.41a54,54,0,0,0-30.34,30.34c-8.29,21-6.41,71-6.41,94.37s-1.87,73.36,6.41,94.37a54,54,0,0,0,30.34,30.34c21,8.29,71,6.41,94.37,6.41s73.36,1.87,94.37-6.41a54,54,0,0,0,30.34-30.34c8.29-21,6.41-71,6.41-94.37S357,182.71,348.71,161.66ZM224,338.66A82.66,82.66,0,1,1,306.66,256,82.76,82.76,0,0,1,224,338.66ZM337.07,175a19.29,19.29,0,1,1,19.29-19.29A19.31,19.31,0,0,1,337.07,175Z"/></svg>
       kyrosil
     </a>
 
@@ -109,7 +109,6 @@
     </div>
 
     <div class="kyrosil-msg ok" id="msgOk" data-en="Your submission has been received. After verification, your voucher code will be sent to your email. This form is now closed." data-tr="Başvurunuz alındı. Kontrollerin ardından hediye çeki kodunuz e-posta adresinize gönderilecektir. Form kapanmıştır.">
-      <!-- Tik ikonu -->
       <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
         <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
         <path class="checkmark__check" fill="none" d="M14 27l7 7 16-16"/>
@@ -142,7 +141,6 @@
         btn.addEventListener('click',()=>setLang(btn.getAttribute('data-lang')));
       });
 
-      // localStorage kontrolü
       if(localStorage.getItem("giftFormSubmitted")){
         form.classList.add('submitted');
         fieldBlock.classList.add('hide-fields');
@@ -157,7 +155,7 @@
         const email=form.email.value.trim();
         const honeypot=form.querySelector('input[name="website"]').value;
 
-        if(honeypot){return;} // bot
+        if(honeypot){return;}
 
         if(!igRegex.test(ig)){
           msgErr.textContent="Invalid Instagram username / Geçersiz kullanıcı adı.";
@@ -168,7 +166,6 @@
           msgErr.style.display='block'; return;
         }
 
-        // Başarılı
         fieldBlock.classList.add('hide-fields');
         form.classList.add('submitted');
         msgOk.classList.add('show');
