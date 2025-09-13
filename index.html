@@ -1,195 +1,100 @@
-<!doctype html>
-<html lang="tr">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>KyroServices Global — Starbucks Greece Tender (Story)</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --bg1:#0a3c2d; /* koyu starbucks yeşili */
-    --bg2:#006341; /* starbucks yeşili */
-    --card:#0b1220;
-    --muted:#b8c3cf;
-    --accent:#00e0a3;
-  }
-  *{box-sizing:border-box}
-  html,body{height:100%;margin:0}
-  body{
-    background:linear-gradient(180deg,var(--bg2),#0f1724);
-    font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-    color:#fff; display:grid; place-items:center;
-  }
+<div class="kyrosil-gift-wrapper" lang="en">
+  <style>
+    .kyrosil-gift-wrapper {
+      --bg:#0f1220; --card:#151933; --txt:#e9ecf1; --muted:#9aa3b2; --accent:#7aa2ff; --ok:#22c55e; --err:#ef4444;
+      display:grid; place-items:center; padding:20px; background:var(--bg); color:var(--txt); font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+    }
+    .kyrosil-card{ width:100%; max-width:560px; background:var(--card); border:1px solid #263056; border-radius:16px; padding:22px; box-shadow:0 10px 30px rgba(0,0,0,.35); position:relative}
+    .lang-switch{ position:absolute; top:16px; right:16px; display:flex; gap:8px}
+    .lang-btn{ background:var(--accent); border:none; border-radius:8px; padding:4px 8px; font-size:13px; font-weight:600; cursor:pointer; color:#0b1024}
+    .kyrosil-title{font-size:22px; font-weight:700; margin:0 0 8px}
+    .kyrosil-sub{font-size:14px; color:var(--muted); margin:0 0 16px}
+    .kyrosil-note{font-size:14px; background:#0f1733; border:1px dashed #2a3a74; padding:10px 12px; border-radius:10px; margin-bottom:16px}
+    .kyrosil-field{margin-bottom:14px}
+    .kyrosil-label{display:block; font-size:14px; margin-bottom:6px}
+    .kyrosil-input{
+      width:100%; padding:12px 14px; border-radius:12px; border:1px solid #2a3563; background:#0e1430; color:var(--txt);
+      outline:none; transition:border .2s, box-shadow .2s; font-size:15px;
+    }
+    .kyrosil-input:focus{ border-color:var(--accent); box-shadow:0 0 0 3px rgba(122,162,255,.15)}
+    .kyrosil-btn{
+      width:100%; padding:12px 16px; border:none; border-radius:12px; font-weight:700; font-size:15px;
+      color:#0b1024; background:var(--accent); cursor:pointer; transition:transform .05s ease;
+    }
+    .kyrosil-btn:active{ transform:translateY(1px)}
+    .kyrosil-msg{margin-top:14px; font-size:14px; display:none}
+    .kyrosil-msg.ok{ color:var(--ok)}
+    .kyrosil-msg.err{ color:var(--err)}
+    .kyrosil-footer{margin-top:16px; font-size:12px; color:var(--muted); text-align:center}
+  </style>
 
-  /* --- Tek ekranlık “story frame”: 9:16 oran, kayma yok --- */
-  .story{
-    aspect-ratio:9/16;
-    width:min(100vw,1080px);
-    height:auto;           /* oran korunduğu için otomatik */
-    max-height:100vh;      /* tek ekrana sığsın */
-    display:flex; align-items:center; justify-content:center;
-    padding:2.5vh 2.8vw;
-  }
-
-  /* Kart/çerçeve */
-  .card{
-    position:relative;
-    width:100%; height:100%;
-    background:linear-gradient(180deg,rgba(255,255,255,0.04),rgba(255,255,255,0.02));
-    border:1px solid rgba(255,255,255,0.12);
-    border-radius:24px;
-    box-shadow:0 20px 60px rgba(0,0,0,.45), inset 0 0 80px rgba(0,0,0,.25);
-    padding:2.8vh 3vw;
-    display:flex; flex-direction:column; justify-content:space-between;
-  }
-
-  /* Header: logolar + başlık */
-  header{
-    display:flex; align-items:center; justify-content:center; gap:2.2vw;
-    margin-top:0.5vh; text-align:center;
-  }
-  .logo{
-    width:16vh; height:16vh; min-width:110px; min-height:110px;
-    border-radius:50%; overflow:hidden;
-    display:grid; place-items:center;
-    background:rgba(255,255,255,0.06);
-    border:1px solid rgba(255,255,255,0.18);
-    box-shadow:0 10px 28px rgba(0,0,0,.35);
-  }
-  .logo img{
-    width:76%; height:76%; object-fit:contain;
-    /* Starbucks görselindeki dikdörtgen beyaz kenarları maske içinde kaybolur */
-  }
-
-  h1{
-    font-size:clamp(22px,2.7vh,36px);
-    line-height:1.15; margin:1.2vh 0 0; font-weight:900; letter-spacing:.2px;
-    text-align:center;
-  }
-  .sub{
-    text-align:center; color:var(--muted); font-size:clamp(12px,1.7vh,16px);
-    margin-top:.6vh;
-  }
-
-  /* Dil butonu */
-  .controls{
-    display:flex; justify-content:center; margin-top:1.2vh;
-  }
-  .lang-btn{
-    appearance:none; border:1px solid rgba(255,255,255,0.22);
-    background:rgba(255,255,255,0.08);
-    color:#fff; padding:.9vh 2.2vw; border-radius:999px;
-    font-weight:700; cursor:pointer; font-size:clamp(12px,1.8vh,18px);
-  }
-  .lang-btn:hover{border-color:rgba(0,224,163,.7)}
-
-  /* İçerik alanı: sabit yükseklik → metin değişse bile kayma yok */
-  .content-wrap{
-    position:relative;
-    margin:1.2vh auto 0; width:min(88%,920px);
-    height:46vh; /* SABİT: tek ekrana sığar ve kayma yapmaz */
-  }
-  .lang-pane{
-    position:absolute; inset:0; overflow:hidden auto;
-    padding:1.2vh 1.4vw; border-radius:14px;
-    background:rgba(11,18,32,0.28);
-    border:1px solid rgba(255,255,255,0.08);
-    box-shadow:inset 0 0 40px rgba(0,0,0,.25);
-    opacity:0; pointer-events:none; transition:opacity .25s ease;
-  }
-  .lang-pane.show{opacity:1; pointer-events:auto}
-
-  .lang-pane p{
-    font-size:clamp(14px,2.05vh,22px);
-    line-height:1.58; margin:0 0 1.2em 0; color:#f2f6fa;
-  }
-  .accent{color:var(--accent); font-weight:700}
-
-  /* Alt bilgi */
-  footer{
-    display:flex; flex-direction:column; align-items:center; gap:1.2vh;
-    margin-bottom:.4vh;
-  }
-  .pill{
-    display:inline-block; padding:1.1vh 2.3vw; border-radius:999px;
-    background:rgba(255,255,255,0.10); color:#fff; text-decoration:none;
-    border:1px solid rgba(255,255,255,0.22);
-    font-weight:700; font-size:clamp(12px,1.8vh,18px)
-  }
-  .note{
-    color:#c7d0db; font-size:clamp(10px,1.5vh,14px); text-align:center; opacity:.8
-  }
-
-  /* Küçük ekranlarda da tek ekrana sığsın */
-  @media (max-height:700px){
-    .content-wrap{height:50vh}
-  }
-</style>
-</head>
-<body>
-  <div class="story">
-    <div class="card">
-
-      <!-- LOGOLAR + BAŞLIK -->
-      <div>
-        <header>
-          <div class="logo">
-            <img src="https://kyrosil.eu/wp-content/uploads/2025/07/290299_a04d46893aa7d9c461374e6ce89f8267-11_7_2022-10_38_08-AM-300x300.png?crop=1" alt="KyroServices Global">
-          </div>
-          <div class="logo">
-            <img src="https://kyrosil.eu/wp-content/uploads/2025/04/image-7.png" alt="Starbucks">
-          </div>
-        </header>
-        <h1>KYROSERVICES GLOBAL — RESMİ DUYURU</h1>
-        <div class="sub">Starbucks Yunanistan &amp; Kıbrıs | İhale Tarihi: 1 Eylül 2025</div>
-        <div class="controls"><button id="toggle" class="lang-btn">English</button></div>
-      </div>
-
-      <!-- SABİT YÜKSEKLİKTE METİN ALANI -->
-      <div class="content-wrap">
-        <!-- TR -->
-        <section class="lang-pane show" data-lang="tr">
-          <p>KyroServices Global, Avrupa’daki büyüme stratejisini güçlendirecek önemli bir adım atarak, <strong>1 Eylül 2025</strong> tarihinde gerçekleştirilecek <span class="accent">Starbucks Yunanistan ve Kıbrıs marka hakları ile operasyon yönetimi ihalesine</span> resmi olarak katılmıştır.</p>
-          <p>Bu ihale, uzun yıllardır <strong>Marinopoulos Coffee Company S.A.</strong> tarafından yürütülen marka haklarının geleceğini belirleyecek olup, uluslararası ölçekte güçlü adayların yarıştığı prestijli bir süreçtir. KyroServices Global, finansal gücü, küresel marka yönetim tecrübesi ve Avrupa genelindeki operasyonel başarılarıyla bu yarışta öne çıkan en iddialı katılımcılardan biridir.</p>
-          <p>Şirketimiz, Starbucks’ın Yunanistan’daki potansiyelini en üst seviyeye taşıyabilecek stratejik vizyona ve operasyonel kabiliyete sahiptir. Bu süreç, yalnızca bir marka lisansını kazanma yarışı değil, aynı zamanda bölgedeki kahve kültürünü yeni bir döneme taşıma fırsatıdır.</p>
-          <p>İhale sürecinin her aşamasında şeffaflık ilkemizle hareket edecek, gelişmeleri kamuoyu ve yatırımcılarımızla düzenli olarak paylaşacağız.</p>
-          <p><strong>KyroServices Global – Power of Europe</strong></p>
-        </section>
-
-        <!-- EN -->
-        <section class="lang-pane" data-lang="en">
-          <p>KyroServices Global has taken an important step to strengthen its growth strategy in Europe by officially participating in the <span class="accent">Starbucks Greece &amp; Cyprus brand rights and operations management tender</span> to be held on <strong>September 1, 2025</strong>.</p>
-          <p>This tender will determine the future of the brand rights, which have been managed for many years by <strong>Marinopoulos Coffee Company S.A.</strong>, and is a prestigious process with strong contenders on an international scale. KyroServices Global stands out as one of the most ambitious participants in this race with its financial strength, global brand management expertise, and operational success across Europe.</p>
-          <p>Our company has the strategic vision and operational capability to realize the full potential of Starbucks in Greece. This process is not merely a competition to obtain a brand license but also an opportunity to bring a new era to the region’s coffee culture.</p>
-          <p>We will act with transparency at every stage of the tender process and regularly share developments with the public and our investors.</p>
-          <p><strong>KyroServices Global – Power of Europe</strong></p>
-        </section>
-      </div>
-
-      <!-- ALT ALAN -->
-      <footer>
-        <a class="pill" href="https://kyro.services" target="_blank" rel="noopener">🌐 kyro.services</a>
-        <a class="pill" href="mailto:info@kyro.services">✉️ info@kyro.services</a>
-        <div class="note">Kyros and Dimitri History Services, KyroServices Global’in alt şirketidir.</div>
-      </footer>
-
+  <form class="kyrosil-card" id="kyrosil-gift-form" novalidate>
+    <!-- Dil butonları -->
+    <div class="lang-switch">
+      <button type="button" class="lang-btn" data-lang="en">EN 🇬🇧</button>
+      <button type="button" class="lang-btn" data-lang="tr">TR 🇹🇷</button>
     </div>
-  </div>
 
-<script>
-  (function(){
-    const btn = document.getElementById('toggle');
-    const tr = document.querySelector('.lang-pane[data-lang="tr"]');
-    const en = document.querySelector('.lang-pane[data-lang="en"]');
-    let isTR = true;
-    btn.addEventListener('click', ()=>{
-      isTR = !isTR;
-      tr.classList.toggle('show', isTR);
-      en.classList.toggle('show', !isTR);
-      btn.textContent = isTR ? 'English' : 'Türkçe';
-      document.documentElement.lang = isTR ? 'tr' : 'en';
-    });
-  })();
-</script>
-</body>
-</html>
+    <h2 class="kyrosil-title" data-en="Pull&Bear Gift Voucher" data-tr="Pull&Bear Hediye Çeki">Pull&Bear Gift Voucher</h2>
+    <p class="kyrosil-sub" data-en="Follow Kyrosil on Instagram today until 00:00 CET and receive a 15 EUR voucher (valid in EU countries)." data-tr="Bugün 00.00 CET’e kadar Kyrosil’i Instagram’dan takip eden herkese Türkiye’de geçerli 500 TL hediye çeki.">Follow Kyrosil on Instagram today until 00:00 CET and receive a 15 EUR voucher (valid in EU countries).</p>
+
+    <div class="kyrosil-note" data-en="The voucher code will be sent to the email address you provide below." data-tr="Hediye çeki kodu aşağıda girdiğiniz e-posta adresinize gönderilecektir.">
+      The voucher code will be sent to the email address you provide below.
+    </div>
+
+    <div class="kyrosil-field">
+      <label class="kyrosil-label" data-en="Instagram Username" data-tr="Instagram Kullanıcı Adı" for="ig">Instagram Username</label>
+      <input class="kyrosil-input" type="text" id="ig" name="instagram" placeholder="yourusername" required />
+    </div>
+
+    <div class="kyrosil-field">
+      <label class="kyrosil-label" data-en="Email Address" data-tr="E-posta Adresi" for="email">Email Address</label>
+      <input class="kyrosil-input" type="email" id="email" name="email" placeholder="example@mail.com" required />
+    </div>
+
+    <button class="kyrosil-btn" type="submit" data-en="Submit" data-tr="Gönder">Submit</button>
+
+    <div class="kyrosil-msg ok" id="msgOk" data-en="Your submission has been received. After verification, your voucher code will be sent to your email. This form is now closed." data-tr="Başvurunuz alındı. Kontrollerin ardından hediye çeki kodunuz e-posta adresinize gönderilecektir. Form kapanmıştır.">Your submission has been received...</div>
+    <div class="kyrosil-msg err" id="msgErr" data-en="Error! Please try again." data-tr="Hata! Lütfen tekrar deneyin.">Error! Please try again.</div>
+
+    <div class="kyrosil-footer">© Kyrosil</div>
+  </form>
+
+  <script>
+    (function(){
+      const form = document.getElementById('kyrosil-gift-form');
+      const msgOk = document.getElementById('msgOk');
+      const msgErr = document.getElementById('msgErr');
+      const fields = form.querySelectorAll('[data-en]');
+      const langBtns = document.querySelectorAll('.lang-btn');
+
+      function setLang(lang){
+        fields.forEach(el=>{
+          el.innerHTML = el.getAttribute('data-'+lang);
+        });
+      }
+      // açılış dili İngilizce
+      setLang('en');
+
+      langBtns.forEach(btn=>{
+        btn.addEventListener('click',()=>{
+          const l = btn.getAttribute('data-lang');
+          setLang(l);
+        });
+      });
+
+      form.addEventListener('submit',(e)=>{
+        e.preventDefault();
+        const ig = form.instagram.value.trim();
+        const email = form.email.value.trim();
+        if(!ig || !email.includes('@')){
+          msgErr.style.display='block';
+          return;
+        }
+        form.querySelectorAll('input,button').forEach(el=>el.disabled=true);
+        msgOk.style.display='block';
+        form.reset();
+      });
+    })();
+  </script>
+</div>
