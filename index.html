@@ -26,6 +26,8 @@
     .kyrosil-msg.ok{ color:var(--ok)}
     .kyrosil-msg.err{ color:var(--err)}
     .kyrosil-footer{margin-top:16px; font-size:12px; color:var(--muted); text-align:center}
+    /* Honeypot */
+    .hp-wrap{ position:absolute !important; left:-9999px !important; visibility:hidden !important; height:0; width:0; overflow:hidden}
   </style>
 
   <form class="kyrosil-card" id="kyrosil-gift-form" novalidate>
@@ -36,10 +38,10 @@
     </div>
 
     <h2 class="kyrosil-title" data-en="Pull&Bear Gift Voucher" data-tr="Pull&Bear Hediye Çeki">Pull&Bear Gift Voucher</h2>
-    <p class="kyrosil-sub" data-en="Follow Kyrosil on Instagram today until 00:00 CET and receive a 15 EUR voucher (valid in EU countries)." data-tr="Bugün 00.00 CET’e kadar Kyrosil’i Instagram’dan takip eden herkese Türkiye’de geçerli 500 TL hediye çeki.">Follow Kyrosil on Instagram today until 00:00 CET and receive a 15 EUR voucher (valid in EU countries).</p>
+    <p class="kyrosil-sub" data-en="Follow Kyrosil on Instagram today until 00:00 CET and receive a 15 EUR voucher (valid in EU countries)." data-tr="Bugün 00.00 CET’e kadar Kyrosil’i Instagram’dan takip eden herkese Türkiye’de geçerli 500 TL hediye çeki.">Follow Kyrosil...</p>
 
     <div class="kyrosil-note" data-en="The voucher code will be sent to the email address you provide below." data-tr="Hediye çeki kodu aşağıda girdiğiniz e-posta adresinize gönderilecektir.">
-      The voucher code will be sent to the email address you provide below.
+      The voucher code will be sent...
     </div>
 
     <div class="kyrosil-field">
@@ -50,6 +52,12 @@
     <div class="kyrosil-field">
       <label class="kyrosil-label" data-en="Email Address" data-tr="E-posta Adresi" for="email">Email Address</label>
       <input class="kyrosil-input" type="email" id="email" name="email" placeholder="example@mail.com" required />
+    </div>
+
+    <!-- Honeypot -->
+    <div class="hp-wrap" aria-hidden="true">
+      <label>Leave blank</label>
+      <input type="text" name="website" tabindex="-1" autocomplete="off" />
     </div>
 
     <button class="kyrosil-btn" type="submit" data-en="Submit" data-tr="Gönder">Submit</button>
@@ -68,12 +76,15 @@
       const fields = form.querySelectorAll('[data-en]');
       const langBtns = document.querySelectorAll('.lang-btn');
 
+      // regex: IG username
+      const igRegex = /^[a-zA-Z0-9._]{1,30}$/;
+
       function setLang(lang){
         fields.forEach(el=>{
           el.innerHTML = el.getAttribute('data-'+lang);
         });
       }
-      // açılış dili İngilizce
+      // default dil: EN
       setLang('en');
 
       langBtns.forEach(btn=>{
@@ -85,12 +96,26 @@
 
       form.addEventListener('submit',(e)=>{
         e.preventDefault();
+        msgErr.style.display='none';
+
         const ig = form.instagram.value.trim();
         const email = form.email.value.trim();
-        if(!ig || !email.includes('@')){
+        const honeypot = form.querySelector('input[name="website"]').value;
+
+        if(honeypot){ return; } // bot doldurduysa iptal
+
+        if(!igRegex.test(ig)){
+          msgErr.textContent="Invalid Instagram username / Geçersiz kullanıcı adı.";
           msgErr.style.display='block';
           return;
         }
+        if(!email || !email.includes('@')){
+          msgErr.textContent="Invalid email / Geçersiz e-posta.";
+          msgErr.style.display='block';
+          return;
+        }
+
+        // Başarılı
         form.querySelectorAll('input,button').forEach(el=>el.disabled=true);
         msgOk.style.display='block';
         form.reset();
